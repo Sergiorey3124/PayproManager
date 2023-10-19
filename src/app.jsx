@@ -4,6 +4,8 @@ import { Container } from "@mui/material";
 import Home from "./pages/Home";
 import SingIn from "./components/SingIn";
 import SignUp from "./components/SignUp";//Cambiar nombre del archivo
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const navArrayLinks = [
     { title: "Home", path: "/" },

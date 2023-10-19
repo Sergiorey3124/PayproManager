@@ -1,0 +1,161 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #f5f5f5; /* Color gris claro de fondo */
+}
+
+.image-description-container {
+  display: flex;
+  align-items: flex-start; /* Cambiamos a 'flex-start' para alinear arriba */
+  margin-right: 40px; /* Mueve la imagen un poco a la izquierda */
+}
+
+.image-container {
+  width: 300px; /* Ajusta el ancho deseado para la imagen circular */
+  height: 300px; /* Ajusta el alto deseado para la imagen circular */
+  background: url('./paypro1.jpg') no-repeat center;
+  background-size: contain; /* Ajusta el zoom de la imagen */
+  border-radius: 50%; /* Aplicamos el recorte circular */
+  margin-right: 40px; /* Mueve la imagen un poco a la izquierda */
+  margin-top: 10px; /* Ajusta el valor para alinear la imagen con el texto */
+}
+
+.description-container {
+  padding: 20px;
+  background: #f0f0f0; /* Color de fondo gris casi blanco */
+  text-align: left;
+  border-radius: 10px;
+  flex: 1;
+  margin-top: 10px; /* Ajusta el valor para alinear el cuadro de texto con la imagen */
+}
+
+.description-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Agrega estilos para el efecto de levantamiento en el cuadro de texto */
+.description-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Agrega estilos para el efecto de texto en constante cambio */
+@keyframes changeText {
+  0% {
+    color: #ff0000; /* Rojo */
+  }
+  50% {
+    color: #0000ff; /* Azul */
+  }
+
+  100% {
+    color: rgba(0, 0, 0, 0.8); /* Negro con un valor alfa para el difuminado rojo */
+}
+
+}
+.description-title {
+  animation: changeText 5s infinite;
+}
+
+/* Estilos para el cuadro de detalles que se superpone */
+.rectangle-details {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999; /* Asegura que se superponga al contenido existente */
+  color: #fff; /* Color de texto blanco (puedes ajustarlo según tus necesidades) */
+}
+
+.rectangle-details .rectangle-image {
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 10px;
+}
+
+.rectangle-details .rectangle-text {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.rectangle-details .rectangle-description {
+  font-size: 16px;
+}
+
+.rectangle-details button {
+  background-color: #ff0000; /* Color de fondo del botón */
+  color: #fff; /* Color de texto del botón */
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.rectangle-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.rectangle {
+  width: calc(92% - 120px); /* Aumenta el tamaño de los rectángulos y ajusta el espacio entre ellos */
+  background-color: #f0f0f0; /* Cambia el color de fondo del rectángulo (azul) */
+  border-radius: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px; /* Agrega espacio interior al rectángulo */
+}
+
+.rectangle-image {
+  width: 90%;
+  height: 150px; /* Altura de la imagen */
+  background-size: contain;
+  background-position: center center;
+}
+.rectangle-image {
+  border: 2px solid #333; /* Borde de 2 píxeles sólidos de color gris oscuro */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); /* Sombra con desplazamiento y opacidad */
+}
+
+.rectangle-text {
+  text-align: center;
+  color: #060606; /* Cambia el color del texto a blanco */
+}
+
+/* Agrega las rutas de las imágenes aquí */
+.rectangle-image:nth-child(1) {
+  background-image: url('./PayPro.jpg');
+}
+
+.rectangle-image:nth-child(2) {
+  background-image: url('./payro.jpg');
+}
+
+.rectangle-image:nth-child(3) {
+  background-image: url('./log.jpg');
+}
+
+/* Asegura una transición suave en la propiedad transform */
+.rectangle {
+  /* Otras propiedades de estilo */
+  transition: transform 0.2s ease; /* Ajusta la duración de la transición a tu preferencia */
+}
+
+/* Estilo al pasar el mouse */
+.rectangle:hover {
+  transform: scale(1.2); /* Aumenta el tamaño al 110% del original */
+}
