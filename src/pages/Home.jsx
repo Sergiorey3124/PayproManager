@@ -52,9 +52,10 @@ function HomePage() {
         prevIndex === rectanglesData.length - 1 ? 0 : prevIndex + 1
       );
     }, 5000);
-
+  
     return () => clearInterval(interval);
-  }, []);
+  }, [rectanglesData.length]); // Agrega rectanglesData.length como dependencia
+  
 
   return (
     <div className="home-container">

@@ -1,7 +1,6 @@
 import {
     AppBar,
     Button,
-    Drawer,
     IconButton,
     Toolbar,
     Typography,
@@ -11,10 +10,10 @@ import {
   import { NavLink } from "react-router-dom";
   
   import { useState } from "react";
-  import NavListDrawer from "./NavListDrawer";
+  //import NavListDrawer from "./NavListDrawer";
   import { Box } from "@mui/system";
   
-  export default function Navbar({navArrayLinks}) {
+  export default function NavbarAdmin({navArrayLinks}) {
     const [open, setOpen] = useState(false);
   
     return (
@@ -35,7 +34,7 @@ import {
               variant="h6"
               sx={{ flexGrow: 1 }}
             >
-              PayProManager
+              MetaCalor
             </Typography>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               {navArrayLinks.map((link) => (
@@ -52,7 +51,7 @@ import {
           </Toolbar>
         </AppBar>
   
-        <Drawer
+        {/* <Drawer
           anchor="left"
           open={open}
           onClose={() => setOpen(false)}
@@ -64,7 +63,7 @@ import {
             NavLink={NavLink}
             setOpen={setOpen}
           />
-        </Drawer>
+        </Drawer> */}
       </>
     );
   }

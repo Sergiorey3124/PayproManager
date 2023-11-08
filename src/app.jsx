@@ -1,39 +1,38 @@
 import { Routes, Route } from "react-router-dom";
+import React, { useState } from 'react';
 import Navbar from "./components/Navbar";
+import NavbarAdmin from "./components/NavbarAdmin";
 import { Container } from "@mui/material";
 import Home from "./pages/Home";
-import SingIn from "./components/SingIn";
+import SingIn from "./components/SignIn";
 import SignUp from "./components/SignUp";//Cambiar nombre del archivo
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const navArrayLinks = [
     { title: "Home", path: "/" },
-    { title: "Login", path: "/login" },
-    { title: "Register", path: "/register" },
+    { title: "Iniciar sesión", path: "/login" },
+    { title: "Registrarse", path: "/register" },
   ];
 
-export default function app(){
+  const navArrayLinks2 = [ //Links para navbar ya logueado
+  { title: "Menu", path: "/main" }
+];
+
+export default function App(){
+
+    const [loggedIn, setLoggedIn] = useState(false); // Track user's login status
+
     return(
         <>
-        <Navbar navArrayLinks={navArrayLinks}/>
+        {loggedIn ? <NavbarAdmin navArrayLinks={navArrayLinks2}/> : <Navbar navArrayLinks={navArrayLinks} />}
         <Container sx={{mt: 5}}>
 
             <Routes>
-                <Route path="/"
-                element={<Home/>}/>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/register" element={<SignUp setLoggedIn={setLoggedIn}/>}/>
+                <Route path="/login" element={<SingIn setLoggedIn={setLoggedIn}/>}/>
             </Routes>
-
-            <Routes>
-                <Route path="/login"
-                element={<SingIn/>}/>
-            </Routes>
-
-            <Routes>
-                <Route path="/register"
-                element={<SignUp/>}/>
-            </Routes>
-        
         </Container>
         </>
     )
