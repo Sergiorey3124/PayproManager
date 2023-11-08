@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import SingIn from "./components/SignIn";
 import SignUp from "./components/SignUp";//Cambiar nombre del archivo
 import Main from "./components/Main";
+import Crud1 from "./components/CRUD/Crud1";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -33,7 +34,7 @@ export default function App(){
                 <Route path="/" element={<Home/>}/>
                 <Route path="/register" element={<SignUp setLoggedIn={setLoggedIn}/>}/>
                 <Route path="/login" element={<SingIn setLoggedIn={setLoggedIn}/>}/>
-                <Route path="/main" element={<Main/>}/>
+                <Route path="/main" element={<Crud1/>}/>
             </Routes>
         </Container>
         </>
