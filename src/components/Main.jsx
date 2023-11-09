@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import jsPDF from 'jspdf';
+import logImage from "./log.png";
 
 function Main() {
     const [pagos, setPagos] = useState([]);
@@ -28,16 +29,57 @@ function Main() {
     const generatePDF = (pago) => {
         const doc = new jsPDF();
 
-        doc.text(`ID: ${pago.pago_id}`, 10, 10);
-        doc.text(`RFC: ${pago.RFC}`, 10, 20);
-        doc.text(`Monto: ${pago.monto}`, 10, 30);
-        doc.text(`Fecha: ${pago.fecha}`, 10, 40);
-        doc.text(`Fecha de Aviso: ${pago.fecha_aviso}`, 10, 50);
-        doc.text(`Método de Pago: ${pago.metodo_pago}`, 10, 60);
-        doc.text(`Estado: ${pago.estado}`, 10, 70);
+        // Agregar la imagen en la parte superior izquierda
+        const imgData = logImage;
+        doc.addImage(imgData, 'JPEG', 10, 10, 40, 40);
 
-        doc.save('pago.pdf');
-    };
+        // Título y formato
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Comprobante de Pago', 105, 20, null, null, 'center');
+
+    // Línea horizontal
+    doc.setLineWidth(0.5);
+    doc.line(10, 55, 200, 55);
+
+    // Contenido del comprobante
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`ID del Pago: ${pago.pago_id}`, 15, 70);
+    doc.text(`Fecha del Pago: ${pago.fecha}`, 15, 80);
+    doc.text(`RFC del Cliente: ${pago.RFC}`, 15, 90);
+    doc.text(`Monto Pagado: $${pago.monto}`, 15, 100);
+    doc.text(`Método de Pago: ${pago.metodo_pago}`, 15, 110);
+
+    // Línea horizontal
+    doc.line(10, 120, 200, 120);
+
+    // Nota
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Eaqui va lo del rfc.', 15, 130);
+
+
+
+
+
+    // Fecha y firma
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Fecha del Pago:', 140, 150);
+    doc.text('Firma del Cliente:', 140, 170);
+
+    // Línea horizontal
+    doc.line(10, 180, 200, 180);
+
+    // Pie de página
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Gracias por su pago. Para más información, por favor contacte con nuestro servicio de atención al cliente.', 15, 195);
+
+    doc.save('comprobante_pago.pdf');
+};
+
 
     return (
         <div className="container mt-4">

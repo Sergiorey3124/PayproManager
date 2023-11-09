@@ -35,6 +35,7 @@ export default function App(){
                 <Route path="/register" element={<SignUp setLoggedIn={setLoggedIn}/>}/>
                 <Route path="/login" element={<SingIn setLoggedIn={setLoggedIn}/>}/>
                 <Route path="/main" element={<Main/>}/>
+                <Route path="/crud" element={<Crud1/>}/>
             </Routes>
         </Container>
         </>
