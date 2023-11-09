@@ -34,7 +34,7 @@ export default function App(){
                 <Route path="/" element={<Home/>}/>
                 <Route path="/register" element={<SignUp setLoggedIn={setLoggedIn}/>}/>
                 <Route path="/login" element={<SingIn setLoggedIn={setLoggedIn}/>}/>
-                <Route path="/main" element={<Crud1/>}/>
+                <Route path="/main" element={<Main/>}/>
             </Routes>
         </Container>
         </>
