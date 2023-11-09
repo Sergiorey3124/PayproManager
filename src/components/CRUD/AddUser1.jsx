@@ -45,31 +45,31 @@ const AddUser1 = (props) => {
                             ></input>
                             {errors.nombre &&
                                 <span className="text-danger text-small d-block mb-2">{errors.nombre.message}</span>}
-                            <p>CURP</p>
+                            <p>RFC</p>
                             <input
                                 name="RFC"
-                                placeholder="NIGS021217HJCTRRA9"
+                                placeholder="REAL102032"
                                 className="form-control my-2"
                                 {...register('RFC', {
-                                    required: { value: true, message: "CURP requerido" },
+                                    required: { value: true, message: "RFC requerido" },
                                     pattern: {
-                                        value: /^[a-zA-Z]{4}[a-zA-Z0-9]{14}$/,
-                                        message: "El CURP no es valido, tiene que tener 18 caracteres y iniciar con 4 letras"
+                                        value: /^[A-Z]{4}[0-9]{6}[A-Z0-9]{3}$/,
+                                        message: "El RFC no es valido, este debe tener: consiste en cuatro letras, seis dígitos y dos caracteres adicionales (homoclave)"
                                     }
                                 })}
                             ></input>
                             {errors.RFC &&
                                 <span className="text-danger text-small d-block mb-2">{errors.RFC.message}</span>}
-                            <p>Telefono</p>
+                            <p>Correo</p>
                             <input
                                 name="correo_electronico"
-                                placeholder="3330187594"
+                                placeholder="correo1@gmail.com"
                                 className="form-control my-2"
                                 {...register('correo_electronico', {
-                                    required: { value: true, message: "Telefono requerido" },
+                                    required: { value: true, message: "Correo requerido" },
                                     pattern: {
-                                        value: /^\d{10,14}$/,
-                                        message: "El telefono no es valido, debe tener minimo 10 digitos maximo 14"
+                                        value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
+                                        message: "El Correo no es valido, prueba de nuevo."
                                     }
                                 })}
                             ></input>

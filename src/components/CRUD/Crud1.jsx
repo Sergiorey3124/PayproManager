@@ -65,7 +65,7 @@ const Crud1 = () => {
           }
         </div>
         <div className="flex-large">
-          <h2>Lista de Tutores</h2>
+          <h2>Lista de Clientes</h2>
           <UserTable1 users={users} deleteUser={deleteUser} editRow={editRow}/>
         </div>
       </div>
