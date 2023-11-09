@@ -8,6 +8,7 @@ import SingIn from "./components/SignIn";
 import SignUp from "./components/SignUp";//Cambiar nombre del archivo
 import Main from "./components/Main";
 import Crud1 from "./components/CRUD/Crud1";
+import Footer from "./components/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -18,7 +19,8 @@ const navArrayLinks = [
   ];
 
   const navArrayLinks2 = [ //Links para navbar ya logueado
-  { title: "Menu", path: "/main" }
+  { title: "Pagos", path: "/main" },
+  { title: "Clientes", path: "/crud" }
 ];
 
 export default function App(){
@@ -37,7 +39,9 @@ export default function App(){
                 <Route path="/main" element={<Main/>}/>
                 <Route path="/crud" element={<Crud1/>}/>
             </Routes>
+            
         </Container>
+        <Footer/>
         </>
     )
 }
