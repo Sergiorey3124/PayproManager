@@ -54,7 +54,7 @@ const AddUser1 = (props) => {
                                     required: { value: true, message: "RFC requerido" },
                                     pattern: {
                                         value: /^[A-Z]{4}[0-9]{6}[A-Z0-9]{3}$/,
-                                        message: "El RFC no es valido, este debe tener: consiste en cuatro letras, seis dígitos y dos caracteres adicionales (homoclave)"
+                                        message: "El RFC no es valido, este debe tener: consiste en cuatro letras, seis dígitos y tres caracteres adicionales (homoclave)"
                                     }
                                 })}
                             ></input>

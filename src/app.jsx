@@ -30,7 +30,7 @@ export default function App(){
     return(
         <>
         {loggedIn ? <NavbarAdmin navArrayLinks={navArrayLinks2}/> : <Navbar navArrayLinks={navArrayLinks} />}
-        <Container sx={{mt: 5}}>
+        <Container sx={{mt: 5, marginBottom: 60}}>
 
             <Routes>
                 <Route path="/" element={<Home/>}/>

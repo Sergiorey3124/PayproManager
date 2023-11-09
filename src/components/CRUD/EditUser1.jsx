@@ -20,8 +20,9 @@ const EditUser1 = (props) => {
     }, [props.currentUser, setValue]);
 
     const onSubmit = (data, e) => {
+        props.setEditing(false)
         const formData = new FormData();
-        formData.append("nombre", data.RFC);
+        formData.append("RFC", data.RFC);
         formData.append("nombre", data.nombre);
         formData.append("correo_electronico", data.correo_electronico);
         axios.post('https://paypromanager2.000webhostapp.com/editUsuario.php', formData)
@@ -56,10 +57,11 @@ const EditUser1 = (props) => {
                             ></input>
                             {errors.nombre &&
                                 <span className="text-danger text-small d-block mb-2">{errors.nombre.message}</span>}
-                            <p>CURP</p>
+                            <p>RFC</p>
                             <input
                                 name="RFC"
                                 placeholder="REAL102032"
+                                readOnly={true}
                                 className="form-control my-2"
                                 {...register('RFC', {
                                     required: { value: true, message: "RFC requerido" },

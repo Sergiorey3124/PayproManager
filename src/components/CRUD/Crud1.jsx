@@ -21,7 +21,7 @@ const Crud1 = () => {
 
 
   //Eliminar usuarios
-  const deleteUser = RFC => { //Cuando es solo un parametro podemos omitir los parentesis
+  const deleteUser = (RFC) => { //Cuando es solo un parametro podemos omitir los parentesis
     const formData = new FormData();
         formData.append("RFC", RFC);
         axios.post('https://paypromanager2.000webhostapp.com/deleteUsuario.php', formData)
@@ -55,7 +55,7 @@ const Crud1 = () => {
           {
             editing ? (
               <div>
-                <EditUser1 currentUser={currentUser} fetchTutores={fetchTutores}/>
+                <EditUser1 currentUser={currentUser} fetchTutores={fetchTutores} setEditing={setEditing}/>
               </div>
             ) : (
               <div>
