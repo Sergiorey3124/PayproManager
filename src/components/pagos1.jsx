@@ -10,7 +10,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get("https://paypromanager2.000webhostapp.com/pagos.php")
+      .get("https://paypromanager2.000webhostapp.com/php/pagos.php")
       .then((response) => {
         setPagos(response.data);
       })
@@ -24,7 +24,7 @@ const App = () => {
 
     if (id !== "") {
       axios
-        .get("https://paypromanager2.000webhostapp.com/pagos.php?id=" + id)
+        .get("https://paypromanager2.000webhostapp.com/php/pagos.php?id=" + id)
         .then((response) => {
           setPagos(response.data);
         })
@@ -33,7 +33,7 @@ const App = () => {
         });
     } else if (rfc !== "") {
       axios
-        .get("https://paypromanager2.000webhostapp.com/pagos.php?rfc=" + rfc)
+        .get("https://paypromanager2.000webhostapp.com/php/pagos.php?rfc=" + rfc)
         .then((response) => {
           setPagos(response.data);
         })

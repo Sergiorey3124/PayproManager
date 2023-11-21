@@ -18,7 +18,7 @@ const AddUser1 = (props) => {
         formData.append("contraseña", data.contraseña);
         // formData.append("direccion", data.direccion);
         // formData.append("NSS", data.NSS);
-        axios.post('https://paypromanager2.000webhostapp.com/addUsuario.php', formData)
+        axios.post('https://paypromanager2.000webhostapp.com/php/addUsuario.php', formData)
             .then(response => {
                 console.log(response);
                 setEntradas([

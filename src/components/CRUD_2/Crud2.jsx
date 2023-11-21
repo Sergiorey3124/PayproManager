@@ -11,7 +11,7 @@ const Crud2 = () => {
   }, []);
 
   const fetchTutores = async () => {
-    const response = await fetch('https://paypromanager2.000webhostapp.com/listaUsuarios.php');
+    const response = await fetch('https://paypromanager2.000webhostapp.com/php/listaUsuarios.php');
     const jsonData = await response.json();
     setUsers(jsonData);
   };
@@ -24,7 +24,7 @@ const Crud2 = () => {
   const deleteUser = (RFC) => { //Cuando es solo un parametro podemos omitir los parentesis
     const formData = new FormData();
         formData.append("RFC", RFC);
-        axios.post('https://paypromanager2.000webhostapp.com/deleteUsuario.php', formData)
+        axios.post('https://paypromanager2.000webhostapp.com/php/deleteUsuario.php', formData)
         .then(response => {
             console.log(response);
             fetchTutores();

@@ -28,7 +28,7 @@ const EditUser1 = (props) => {
         formData.append("nombre", data.nombre);
         formData.append("correo_electronico", data.correo_electronico);
         formData.append("contraseña", data.contraseña);
-        axios.post('https://paypromanager2.000webhostapp.com/editUsuario.php', formData)
+        axios.post('https://paypromanager2.000webhostapp.com/php/editUsuario.php', formData)
             .then(response => {
                 console.log(response);
                 setEntradas([

@@ -10,7 +10,7 @@ function Main() {
     // Función para obtener los datos de la tabla de pagos
     const fetchPagos = async () => {
         try {
-            const response = await axios.get('https://paypromanager2.000webhostapp.com/pagos.php');
+            const response = await axios.get('https://paypromanager2.000webhostapp.com/php/pagos.php');
             if (response.data && response.data.length > 0) {
                 setPagos(response.data);
             } else {
@@ -24,7 +24,7 @@ function Main() {
     // Función para obtener los datos de la tabla de usuarios
     const fetchUsuarios = async () => {
         try {
-            const response = await axios.get('https://paypromanager2.000webhostapp.com/listaUsuarios.php');
+            const response = await axios.get('https://paypromanager2.000webhostapp.com/php/listaUsuarios.php');
             if (response.data && response.data.length > 0) {
                 setUsuarios(response.data);
             } else {
