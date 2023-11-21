@@ -1,7 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useForm } from 'react-hook-form'
 import axios from 'axios';
-import './styles.css';
+import '../styles.css';
+
 
 
 const EditUser1 = (props) => {
@@ -17,6 +18,7 @@ const EditUser1 = (props) => {
         setValue("RFC", props.currentUser.RFC);
         setValue("nombre", props.currentUser.nombre);
         setValue("correo_electronico", props.currentUser.correo_electronico);
+        setValue("contraseña", props.currentUser.contraseña);
     }, [props.currentUser, setValue]);
 
     const onSubmit = (data, e) => {
@@ -25,6 +27,7 @@ const EditUser1 = (props) => {
         formData.append("RFC", data.RFC);
         formData.append("nombre", data.nombre);
         formData.append("correo_electronico", data.correo_electronico);
+        formData.append("contraseña", data.contraseña);
         axios.post('https://paypromanager2.000webhostapp.com/editUsuario.php', formData)
             .then(response => {
                 console.log(response);
@@ -41,7 +44,7 @@ const EditUser1 = (props) => {
 
     return (
         <Fragment>
-            <h1>Editar Cliente</h1>
+            <h1>Editar Usuario</h1>
             <div className="container">
                 <div className="row">
                     <div className="col-lg-6">
@@ -73,7 +76,7 @@ const EditUser1 = (props) => {
                             ></input>
                             {errors.RFC &&
                                 <span className="text-danger text-small d-block mb-2">{errors.RFC.message}</span>}
-                            <p>Telefono</p>
+                            <p>Correo electronico</p>
                             <input
                                 name="correo_electronico"
                                 placeholder="correo1@gmail.com"
@@ -88,6 +91,24 @@ const EditUser1 = (props) => {
                             ></input>
                             {errors.correo_electronico &&
                                 <span className="text-danger text-small d-block mb-2">{errors.correo_electronico.message}</span>}
+                           
+                           <p>Contraseña</p>
+                            <input
+                                name="contraseña"
+                                placeholder="Contrasena123"
+                                className="form-control my-2"
+                                {...register('contraseña', {
+                                    required: { value: true, message: "Contraseña requerida" },
+                                    pattern: {
+                                        value: /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~/-]).{8,}$/,
+                                        message: "La contraseña debe tener al menos 8 caracteres, una mayuscula, un numero y un caracter especial."
+                                    }
+                                })}
+                            ></input>
+                            {errors.contraseña &&
+                                <span className="text-danger text-small d-block mb-2">{errors.contraseña.message}</span>}
+
+                           
                             <button className="btn btn-primary btn-purple">Enviar</button>
                         </form>
                     </div>

@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { useForm } from 'react-hook-form'
 import axios from 'axios';
-import './styles.css';
+import '../styles.css';
 
 
 const AddUser1 = (props) => {
@@ -15,6 +15,9 @@ const AddUser1 = (props) => {
         formData.append("nombre", data.nombre);
         formData.append("RFC", data.RFC);
         formData.append("correo_electronico", data.correo_electronico);
+        formData.append("contraseña", data.contraseña);
+        // formData.append("direccion", data.direccion);
+        // formData.append("NSS", data.NSS);
         axios.post('https://paypromanager2.000webhostapp.com/addUsuario.php', formData)
             .then(response => {
                 console.log(response);
@@ -75,6 +78,23 @@ const AddUser1 = (props) => {
                             ></input>
                             {errors.correo_electronico &&
                                 <span className="text-danger text-small d-block mb-2">{errors.correo_electronico.message}</span>}
+
+                            <p>Contraseña</p>
+                            <input
+                                name="contraseña"
+                                placeholder="Contrasena123"
+                                className="form-control my-2"
+                                {...register('contraseña', {
+                                    required: { value: true, message: "Contraseña requerida" },
+                                    pattern: {
+                                        value: /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~/-]).{8,}$/,
+                                        message: "La contraseña debe tener al menos 8 caracteres, una mayuscula, un numero y un caracter especial."
+                                    }
+                                })}
+                            ></input>
+                            {errors.contraseña &&
+                                <span className="text-danger text-small d-block mb-2">{errors.contraseña.message}</span>}
+
                             <button className="btn btn-primary btn-purple">Enviar</button>
                         </form>
                     </div>

@@ -34,7 +34,7 @@ import {
               variant="h6"
               sx={{ flexGrow: 1 }}
             >
-              MetaCalor
+              PayProManager
             </Typography>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               {navArrayLinks.map((link) => (

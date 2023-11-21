@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import AddUser1 from "./AddUser1";
-import EditUser1 from "./EditUser1";
-import UserTable1 from "./UserTable1";
+import AddPagos from "./AddPagos";
+import EditPagos from "./EditPagos";
+import PagosTable from "./PagosTable";
 import axios from 'axios';
 
-const Crud1 = () => {
+const Crud2 = () => {
 
   useEffect(() => {
     fetchTutores();
@@ -73,4 +73,4 @@ const Crud1 = () => {
   )
 }
 
-export default Crud1;
+export default Crud2;

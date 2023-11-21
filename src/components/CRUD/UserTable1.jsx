@@ -1,5 +1,5 @@
 import React from "react";
-import './styles.css';
+import '../styles.css';
 
 const UserTable1 = (props) => {
     console.log(props)
@@ -8,9 +8,9 @@ const UserTable1 = (props) => {
         <table className="table table-striped table-bordered">
     <thead>
       <tr>
-        <th>RFC</th>
         <th>Nombre</th>
         <th>Correo</th>
+        <th>RFC</th>
       </tr>
     </thead>
     <tbody>
@@ -23,7 +23,7 @@ const UserTable1 = (props) => {
                 <td>{user.RFC}</td>
                 <td>
                   <button className="btn btn-primary btn-purple mr-4" onClick={() => {props.editRow(user)}}>Editar</button>
-                  <button className="btn btn-primary btn-purple" onClick={() => {props.deleteUser(user.CURP)}}>Eliminar</button> 
+                  <button className="btn btn-primary btn-purple" onClick={() => {props.deleteUser(user.RFC)}}>Eliminar</button> 
                   {/* Hacemos en el onClick una funcion de flecha para evitar que se ejecute desde que se abre la pagina */}
                 </td>
               </tr>

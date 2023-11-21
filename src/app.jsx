@@ -20,7 +20,7 @@ const navArrayLinks = [
 
   const navArrayLinks2 = [ //Links para navbar ya logueado
   { title: "Pagos", path: "/main" },
-  { title: "Clientes", path: "/crud" }
+  { title: "Usuarios", path: "/usuarios" }
 ];
 
 export default function App(){
@@ -37,7 +37,7 @@ export default function App(){
                 <Route path="/register" element={<SignUp setLoggedIn={setLoggedIn}/>}/>
                 <Route path="/login" element={<SingIn setLoggedIn={setLoggedIn}/>}/>
                 <Route path="/main" element={<Main/>}/>
-                <Route path="/crud" element={<Crud1/>}/>
+                <Route path="/usuarios" element={<Crud1/>}/>
             </Routes>
             
         </Container>
