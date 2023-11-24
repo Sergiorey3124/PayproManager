@@ -29,7 +29,7 @@ export default function SignUp({setLoggedIn}) {
     //   password: data.get('password')
     // });
 
-    axios.post('https://paypromanager2.000webhostapp.com/registro.php', data)
+    axios.post('https://paypromanager2.000webhostapp.com/php/registro.php', data)
     .then(response => {
       console.log(response);
       if (response.data.success) {

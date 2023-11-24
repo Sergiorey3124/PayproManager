@@ -35,6 +35,14 @@ function Main() {
         }
     };
 
+
+    const handleReminder = (pago) => {
+        // Aquí puedes agregar la lógica para enviar correos electrónicos o realizar cualquier acción de recordatorio
+        // Por ejemplo, podrías llamar a una función que envíe un correo electrónico usando alguna biblioteca de correo electrónico
+        // o realizar alguna otra acción relacionada con el recordatorio.
+        console.log(`Enviar recordatorio para el pago con ID ${pago.pago_id}`);
+    };
+
     // Llamar a fetchUsuarios al cargar el componente
     useEffect(() => {
         fetchUsuarios();
@@ -91,7 +99,7 @@ function Main() {
             doc.text('Información del cliente no disponible', 15, 140);
         }
 
-        // ... (código existente)
+        
 
         // Fecha y firma
         doc.setFontSize(12);
@@ -134,15 +142,18 @@ function Main() {
                             <td>{pago.fecha}</td>
                             <td>{pago.fecha_aviso}</td>
                             <td>{pago.metodo_pago}</td>
-                            <td>{pago.estado}</td>
+                            <td>{pago.estado ? 'Pagado' : 'En Espera'}</td>
                             <td>
-                                <button
-                                    className="btn btn-primary"
-                                    onClick={() => generatePDF(pago)}
-                                >
-                                    Imprimir PDF
-                                </button>
-                            </td>
+    {pago.estado === 1 ? (  // Estado 1 significa 'Pagado'
+        <button className="btn btn-primary" onClick={() => generatePDF(pago)}>
+            Imprimir PDF
+        </button>
+    ) : (
+        <button className="btn btn-warning" onClick={() => handleReminder(pago)}>
+            Poner Recordatorio
+        </button>
+    )}
+</td>
                         </tr>
                     ))}
                 </tbody>
