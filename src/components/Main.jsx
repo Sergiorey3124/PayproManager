@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import jsPDF from 'jspdf';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 import logImage from "./log.png";
 
 function Main() {
     const [pagos, setPagos] = useState([]);
     const [usuarios, setUsuarios] = useState([]);
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [selectedPago, setSelectedPago] = useState(null);
+    const [confirmDate, setConfirmDate] = useState("");
 
-    // Función para obtener los datos de la tabla de pagos
+    const handleCloseConfirmModal = () => setShowConfirmModal(false);
+    const handleShowConfirmModal = () => setShowConfirmModal(true);
+
     const fetchPagos = async () => {
         try {
             const response = await axios.get('https://paypromanager2.000webhostapp.com/php/pagos.php');
@@ -21,7 +28,6 @@ function Main() {
         }
     };
 
-    // Función para obtener los datos de la tabla de usuarios
     const fetchUsuarios = async () => {
         try {
             const response = await axios.get('https://paypromanager2.000webhostapp.com/php/listaUsuarios.php');
@@ -35,25 +41,31 @@ function Main() {
         }
     };
 
-
-    const handleReminder = (pago) => {
-        // Aquí puedes agregar la lógica para enviar correos electrónicos o realizar cualquier acción de recordatorio
-        // Por ejemplo, podrías llamar a una función que envíe un correo electrónico usando alguna biblioteca de correo electrónico
-        // o realizar alguna otra acción relacionada con el recordatorio.
-        console.log(`Enviar recordatorio para el pago con ID ${pago.pago_id}`);
+    const Confirmar = (pago) => {
+        setSelectedPago(pago);
+        handleShowConfirmModal();
     };
 
-    // Llamar a fetchUsuarios al cargar el componente
-    useEffect(() => {
-        fetchUsuarios();
-    }, []);
+    const handleDateChange = (event) => {
+        setConfirmDate(event.target.value);
+    };
 
-    // Llamar a fetchPagos al cargar el componente
-    useEffect(() => {
-        fetchPagos();
-    }, []);
+    const handleConfirmAction = () => {
+        // Validar que se haya ingresado una fecha
+        if (!confirmDate) {
+            // Puedes mostrar un mensaje de error o tomar la acción que prefieras
+            alert("Por favor, ingrese una fecha de confirmación.");
+            return;
+        }
 
-    // Función para generar un PDF a partir de la fila de datos
+        // Puedes acceder a confirmDate para realizar la acción que necesites
+        console.log("Fecha de confirmación:", confirmDate);
+
+        // Aquí puedes realizar la lógica adicional antes de confirmar el pago
+        generatePDF(selectedPago);
+        handleCloseConfirmModal();
+    };
+
     const generatePDF = (pago) => {
         const doc = new jsPDF();
 
@@ -87,19 +99,17 @@ function Main() {
         doc.setFont('helvetica', 'normal');
         doc.text('INFORMACION DEL CLIENTE:', 15, 130);
 
-        // Obtener información del usuario
-        const usuario = usuarios.find((u) => u.id === pago.usuario_id);
+        // Obtener información del usuario por RFC
+        const usuario = usuarios.find((u) => u.RFC === pago.RFC);
         if (usuario) {
             doc.text(`Nombre: ${usuario.nombre}`, 15, 140);
-            doc.text(`Correo Electrónico: ${usuario.correo}`, 15, 150);
+            doc.text(`Correo Electrónico: ${usuario.correo_electronico}`, 15, 150);
             doc.text(`Direccion: ${usuario.direccion}`, 15, 160);
             doc.text(`NSS: ${usuario.NSS}`, 15, 170);
             // Puedes agregar más campos según la estructura de tu tabla Usuario
         } else {
             doc.text('Información del cliente no disponible', 15, 140);
         }
-
-        
 
         // Fecha y firma
         doc.setFontSize(12);
@@ -117,6 +127,14 @@ function Main() {
         doc.text("Para más información, por favor contacte con nuestro servicio de atención al cliente", 17, 200);
         doc.save('comprobante_pago.pdf');
     };
+
+    useEffect(() => {
+        fetchUsuarios();
+    }, []);
+
+    useEffect(() => {
+        fetchPagos();
+    }, []);
 
     return (
         <div className="container mt-4">
@@ -144,20 +162,50 @@ function Main() {
                             <td>{pago.metodo_pago}</td>
                             <td>{pago.estado ? 'Pagado' : 'En Espera'}</td>
                             <td>
-    {pago.estado === 1 ? (  // Estado 1 significa 'Pagado'
-        <button className="btn btn-primary" onClick={() => generatePDF(pago)}>
-            Imprimir PDF
-        </button>
-    ) : (
-        <button className="btn btn-warning" onClick={() => handleReminder(pago)}>
-            Poner Recordatorio
-        </button>
-    )}
-</td>
+                                {pago.estado === 1 ? (
+                                    <button className="btn btn-primary" onClick={() => generatePDF(pago)}>
+                                        Imprimir PDF
+                                    </button>
+                                ) : (
+                                    <button className="btn btn-warning" onClick={() => Confirmar(pago)}>
+                                        Confirmar Pago
+                                    </button>
+                                )}
+                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+
+            <Modal show={showConfirmModal} onHide={handleCloseConfirmModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirmar Pago</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>¿Estás seguro de que deseas confirmar el pago?</p>
+                    <form>
+                        <div className="form-group">
+                            <label htmlFor="confirmDate">Fecha de Confirmación:</label>
+                            <input
+                                type="date"
+                                id="confirmDate"
+                                value={confirmDate}
+                                onChange={handleDateChange}
+                                className="form-control"
+                                required
+                            />
+                        </div>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseConfirmModal}>
+                        Cancelar
+                    </Button>
+                    <Button variant="primary" onClick={handleConfirmAction}>
+                        Confirmar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }
