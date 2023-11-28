@@ -18,7 +18,7 @@ const EditUser1 = (props) => {
         setValue("RFC", props.currentUser.RFC);
         setValue("nombre", props.currentUser.nombre);
         setValue("correo_electronico", props.currentUser.correo_electronico);
-        setValue("contraseña", props.currentUser.contraseña);
+        // setValue("contraseña", props.currentUser.contraseña);
     }, [props.currentUser, setValue]);
 
     const onSubmit = (data, e) => {
@@ -27,7 +27,7 @@ const EditUser1 = (props) => {
         formData.append("RFC", data.RFC);
         formData.append("nombre", data.nombre);
         formData.append("correo_electronico", data.correo_electronico);
-        formData.append("contraseña", data.contraseña);
+        // formData.append("contraseña", data.contraseña);
         axios.post('https://paypromanager2.000webhostapp.com/php/editUsuario.php', formData)
             .then(response => {
                 console.log(response);
@@ -92,7 +92,7 @@ const EditUser1 = (props) => {
                             {errors.correo_electronico &&
                                 <span className="text-danger text-small d-block mb-2">{errors.correo_electronico.message}</span>}
                            
-                           <p>Contraseña</p>
+                           {/* <p>Contraseña</p>
                             <input
                                 name="contraseña"
                                 placeholder="Contrasena123"
@@ -108,7 +108,7 @@ const EditUser1 = (props) => {
                             {errors.contraseña &&
                                 <span className="text-danger text-small d-block mb-2">{errors.contraseña.message}</span>}
 
-                           
+                            */}
                             <button className="btn btn-primary btn-purple">Enviar</button>
                         </form>
                     </div>

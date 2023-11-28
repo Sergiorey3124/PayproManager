@@ -11,7 +11,7 @@ const Crud2 = () => {
   }, []);
 
   const fetchTutores = async () => {
-    const response = await fetch('https://paypromanager2.000webhostapp.com/php/listaUsuarios.php');
+    const response = await fetch('https://paypromanager2.000webhostapp.com/php/pagos.php');
     const jsonData = await response.json();
     setUsers(jsonData);
   };
@@ -21,10 +21,10 @@ const Crud2 = () => {
 
 
   //Eliminar usuarios
-  const deleteUser = (RFC) => { //Cuando es solo un parametro podemos omitir los parentesis
+  const deleteUser = (pago_id) => { //Cuando es solo un parametro podemos omitir los parentesis
     const formData = new FormData();
-        formData.append("RFC", RFC);
-        axios.post('https://paypromanager2.000webhostapp.com/php/deleteUsuario.php', formData)
+        formData.append("pago_id", pago_id);
+        axios.post('https://paypromanager2.000webhostapp.com/php/deletePago.php', formData)
         .then(response => {
             console.log(response);
             fetchTutores();
@@ -38,13 +38,13 @@ const Crud2 = () => {
 
   const [editing, setEditing] = useState(false)
   const [currentUser, setCurrentUser] = useState({
-    RFC: "", nombre:"", correo_electronico: "", contraseña: "", direccion: "", NSS: ""
+    pago_id: "", RFC:"", monto: "", fecha_aviso: "", metodo_pago: "", estado: ""
   })
 
   const editRow = (user) =>{
     setEditing(true)
     setCurrentUser({
-      RFC: user.RFC, nombre: user.nombre, correo_electronico: user.correo_electronico, contraseña: user.contraseña, direccion: user.direccion, NSS: user.NSS
+      pago_id: user.pago_id, RFC: user.RFC, monto: user.monto, fecha_aviso: user.fecha_aviso, metodo_pago: user.metodo_pago, estado: user.estado
   })
   }
 
@@ -55,18 +55,18 @@ const Crud2 = () => {
           {
             editing ? (
               <div>
-                <EditUser1 currentUser={currentUser} fetchTutores={fetchTutores} setEditing={setEditing}/>
+                <EditPagos currentUser={currentUser} fetchTutores={fetchTutores} setEditing={setEditing}/>
               </div>
             ) : (
               <div>
-                <AddUser1 fetchTutores={fetchTutores}/>
+                <AddPagos fetchTutores={fetchTutores}/>
               </div>
             )
           }
         </div>
         <div className="flex-large">
-          <h2>Lista de Clientes</h2>
-          <UserTable1 users={users} deleteUser={deleteUser} editRow={editRow}/>
+          <h2>Lista de pagos</h2>
+          <PagosTable users={users} deleteUser={deleteUser} editRow={editRow}/>
         </div>
       </div>
     </div>
