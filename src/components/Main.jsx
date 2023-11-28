@@ -11,23 +11,42 @@ function Main() {
     const [selectedPayment, setSelectedPayment] = useState(null);
     const [selectedDate, setSelectedDate] = useState('');
 
+    const [fechaInicio, setFechaInicio] = useState('');
+    const [fechaFin, setFechaFin] = useState('');
+    const [selectedRFC, setSelectedRFC] = useState('');
+
+    const handleFechaInicioChange = (e) => {
+        setFechaInicio(e.target.value);
+        fetchPagos();
+    };
+
+    const handleFechaFinChange = (e) => {
+        setFechaFin(e.target.value);
+        fetchPagos();
+    };
+
+    const handleRFCChange = (e) => {
+        setSelectedRFC(e.target.value);
+        fetchPagos();
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-    
+
         if (!selectedPayment) {
             console.error('Error: selectedPayment no está configurado correctamente.');
             return;
         }
-    
+
         // Formatear la fecha al formato "año-mes-día"
         const formattedDate = new Date(selectedDate).toISOString().split("T")[0];
-    
+
         // Asegúrate de que selectedPayment contiene la información necesaria
         const pago_id = selectedPayment.pago_id;
-    
+
         // Modificar la lógica de estado según sea necesario
         const estado = 1; // Cambia esto según tus necesidades (1 para true, 0 para false)
-    
+
         axios.post('https://paypromanager2.000webhostapp.com/php/editpagos.php', {
             pago_id: pago_id,
             fecha: formattedDate,
@@ -43,10 +62,10 @@ function Main() {
                     }
                     return p;
                 }));
-    
+
                 // Cerrar la ventana emergente
                 closeModal();
-    
+
                 // Mostrar un mensaje de confirmación
                 alert('Pago confirmado correctamente');
             } else {
@@ -59,15 +78,6 @@ function Main() {
             console.error('Error al confirmar el pago:', error);
         });
     };
-    
-    
-    
-    
-    const openModal = (pago) => {
-        setShowModal(true);
-        setSelectedPayment(pago);
-        setSelectedDate(pago.fecha);
-    };
 
     // Función para cerrar la ventana emergente
     const closeModal = () => {
@@ -78,12 +88,14 @@ function Main() {
 
     const fetchPagos = async () => {
         try {
-            const response = await axios.get('https://paypromanager2.000webhostapp.com/php/pagos.php');
-            if (response.data && response.data.length > 0) {
-                setPagos(response.data);
-            } else {
-                // Manejar el caso de error o datos vacíos
-            }
+            const response = await axios.get('https://paypromanager2.000webhostapp.com/php/pagos.php', {
+                params: {
+                    fechaInicio,
+                    fechaFin,
+                    RFC: selectedRFC,
+                },
+            });
+            setPagos(response.data);
         } catch (error) {
             // Manejar errores de conexión
             console.error('Error al obtener pagos:', error);
@@ -107,10 +119,10 @@ function Main() {
     function Confirmar(pago) {
         const fechaActual = new Date();
         const fechaFormateada = fechaActual.toISOString().split("T")[0];
-    
+
         // Crear una nueva ventana emergente
         const modal = window.open("", "Confirmar Pago", "width=500,height=300");
-    
+
         // Estilos CSS para mejorar la apariencia
         modal.document.head.innerHTML = `
             <style>
@@ -154,12 +166,12 @@ function Main() {
                 }
             </style>
         `;
-    
+
         // Contenido del formulario
         modal.document.body.innerHTML = `
             <div class="container">
                 <h1>Confirmar Pago</h1>
-                <form action="https://paypromanager2.000webhostapp.com/php/editpagos.php" method="post">
+                <form action="https://paypromanager2.000webhostapp.com/php/pagos.php" method="post">
                     <input type="hidden" name="pago_id" value=${pago.pago_id} />
                     <input type="hidden" name="estado" value="1" />
                     <label for="fecha">Fecha</label>
@@ -169,7 +181,7 @@ function Main() {
                 </form>
             </div>
         `;
-    
+
         // Enviar la solicitud POST al servidor
         axios.post('https://paypromanager2.000webhostapp.com/php/editpagos.php', {
             pago_id: pago.pago_id,
@@ -185,7 +197,7 @@ function Main() {
                     }
                     return p;
                 }));
-    
+
                 // Mostrar un mensaje de confirmación
                 alert('Pago confirmado correctamente');
             } else {
@@ -198,7 +210,6 @@ function Main() {
             console.error('Error al confirmar el pago:', error);
         });
     }
-    
 
     const generatePDF = (pago) => {
         const doc = new jsPDF();
@@ -265,7 +276,7 @@ function Main() {
     useEffect(() => {
         fetchUsuarios();
         fetchPagos();
-    }, []);
+    }, [fechaInicio, fechaFin, selectedRFC]);
 
     return (
         <div>
@@ -290,6 +301,41 @@ function Main() {
             )}
 
             <div className="container mt-4">
+                <div className="mb-3">
+                    <label htmlFor="fechaInicio">Fecha Inicio:</label>
+                    <input
+                        type="date"
+                        id="fechaInicio"
+                        value={fechaInicio}
+                        onChange={(e) => handleFechaInicioChange(e)}
+                    />
+                    <label htmlFor="fechaFin">Fecha Fin:</label>
+                    <input
+                        type="date"
+                        id="fechaFin"
+                        value={fechaFin}
+                        onChange={(e) => handleFechaFinChange(e)}
+                    />
+                    <label htmlFor="RFC">RFC:</label>
+                    <select
+                        id="RFC"
+                        value={selectedRFC}
+                        onChange={(e) => handleRFCChange(e)}
+                    >
+                        <option value="">Todos</option>
+                        {usuarios.map((usuario) => (
+                            <option key={usuario.RFC} value={usuario.RFC}>
+                                {usuario.RFC}
+                            </option>
+                        ))}
+                    </select>
+
+                    {/* Botón para aplicar filtros */}
+                    <button onClick={fetchPagos} className="btn btn-primary ml-2">
+                        Aplicar Filtros
+                    </button>
+                </div>
+
                 <table className="table table-bordered">
                     <thead className="thead-dark">
                         <tr>
