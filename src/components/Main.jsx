@@ -222,6 +222,7 @@ function Main() {
         doc.setFontSize(16);
         doc.setFont('helvetica', 'bold');
         doc.text('Comprobante de Pago', 105, 20, null, null, 'center');
+        doc.text(`Fecha del Pago: ${pago.fecha}`, 105, 50);
 
         // Línea horizontal
         doc.setLineWidth(0.5);
@@ -230,8 +231,8 @@ function Main() {
         // Contenido del comprobante
         doc.setFontSize(12);
         doc.setFont('helvetica', 'normal');
-        doc.text(`ID del Pago: ${pago.pago_id}`, 15, 70);
-        doc.text(`Fecha del Pago: ${pago.fecha}`, 15, 80);
+        doc.text("Pago presentado a traves de PayProManager - Solventado por ´Nombre de la empresa´.",15, 70)
+        doc.text(`ID del Pago: ${pago.pago_id}`, 15, 80);
         doc.text(`RFC del Cliente: ${pago.RFC}`, 15, 90);
         doc.text(`Monto Pagado: $${pago.monto}`, 15, 100);
         doc.text(`Método de Pago: ${pago.metodo_pago}`, 15, 110);
@@ -259,7 +260,6 @@ function Main() {
         // Fecha y firma
         doc.setFontSize(12);
         doc.setFont('helvetica', 'bold');
-        doc.text('Fecha del Pago:', 140, 150);
         doc.text('Firma del Cliente:', 140, 170);
 
         // Línea horizontal
@@ -270,6 +270,11 @@ function Main() {
         doc.setFont('helvetica', 'normal');
         doc.text('Gracias por su confianza, Recuerda que PayProManager te permite tener un control total sobre tus finanzas empresariales.', 15, 190);
         doc.text("Para más información, por favor contacte con nuestro servicio de atención al cliente", 17, 200);
+        doc.text("Este documento se extiende hasta donde los involucrados deseen:  ",17, 210 )
+        doc.text("__________________",17,270)
+        doc.text("__________________",140,270)
+        doc.text("  Firma ´Mi Empresa´", 17, 280)
+        doc.text("  Firma ´Cliente", 140, 280)
         doc.save('comprobante_pago.pdf');
     };
 
