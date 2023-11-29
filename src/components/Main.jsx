@@ -171,7 +171,7 @@ function Main() {
         modal.document.body.innerHTML = `
             <div class="container">
                 <h1>Confirmar Pago</h1>
-                <form action="https://paypromanager2.000webhostapp.com/php/pagos.php" method="post">
+                <form action="https://paypromanager2.000webhostapp.com/php/editpagos.php" method="post">
                     <input type="hidden" name="pago_id" value=${pago.pago_id} />
                     <input type="hidden" name="estado" value="1" />
                     <label for="fecha">Fecha</label>

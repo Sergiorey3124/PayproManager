@@ -28,7 +28,9 @@ const PagosTable = (props) => {
                 <td>{user.fecha}</td>
                 <td>{user.fecha_aviso}</td>
                 <td>{user.metodo_pago}</td>
-                <td>{user.estado}</td>
+                <td>{
+                    user.estado === 0 ? "Pendiente" : "Pagado"
+                  }</td>
                 <td>
                   <button className="btn btn-primary btn-purple mr-4" onClick={() => {props.editRow(user)}}>Editar</button>
                   <button className="btn btn-primary btn-purple" onClick={() => {props.deleteUser(user.pago_id)}}>Eliminar</button> 
