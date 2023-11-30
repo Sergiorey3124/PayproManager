@@ -124,7 +124,7 @@ const BuscarPagos = () => {
                                         user.estado === 0 ? "Pendiente" : "Pagado"
                                     }</td>
                                     <td>
-                                        <button className="btn btn-primary btn-purple" onClick={() => { deleteUser(user.pago_id) }}>Eliminar</button>
+                                        <button className="btn btn-primary btn-purple" onClick={() => { deleteUser(user.pago_id) }}>Generar Factura</button>
                                         {/* Hacemos en el onClick una funcion de flecha para evitar que se ejecute desde que se abre la pagina */}
                                     </td>
                                 </tr>

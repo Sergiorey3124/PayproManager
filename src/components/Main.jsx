@@ -378,9 +378,14 @@ function Main() {
                                             Imprimir PDF
                                         </button>
                                     ) : (
+                                        <>
                                         <button className="btn btn-warning" onClick={() => Confirmar(pago)}>
                                             Confirmar Pago
                                         </button>
+                                         <button className="btn btn-primary" onClick={() => Confirmar(pago)}>
+                                         Enviar Recordatorio
+                                     </button>
+                                 </>
                                     )}
                                 </td>
                             </tr>
