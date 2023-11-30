@@ -12,12 +12,14 @@ import Crud2 from "./components/CRUD_2/Crud2";
 import Footer from "./components/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Facturas from "./components/Facturas";
+import BuscarPagos from "./components/BuscarPagos";
 
 
 const navArrayLinks = [
     { title: "Home", path: "/" },
     { title: "Iniciar sesión", path: "/login" },
     { title: "Registrarse", path: "/register" },
+    { title: "Buscar", path: "/buscar" },
   ];
 
   const navArrayLinks2 = [ //Links para navbar ya logueado
@@ -44,6 +46,7 @@ export default function App(){
                 <Route path="/usuarios" element={<Crud1/>}/>
                 <Route path="/pagos" element={<Crud2/>}/>
                 <Route path="/facturar" element={<Facturas/>}/>
+                <Route path="/buscar" element={<BuscarPagos/>}/>
             </Routes>
             
         </Container>
