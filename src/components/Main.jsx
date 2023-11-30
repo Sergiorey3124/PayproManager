@@ -119,10 +119,10 @@ function Main() {
     function Confirmar(pago) {
         const fechaActual = new Date();
         const fechaFormateada = fechaActual.toISOString().split("T")[0];
-
+    
         // Crear una nueva ventana emergente
         const modal = window.open("", "Confirmar Pago", "width=500,height=300");
-
+    
         // Estilos CSS para mejorar la apariencia
         modal.document.head.innerHTML = `
             <style>
@@ -166,7 +166,7 @@ function Main() {
                 }
             </style>
         `;
-
+    
         // Contenido del formulario
         modal.document.body.innerHTML = `
             <div class="container">
@@ -181,7 +181,7 @@ function Main() {
                 </form>
             </div>
         `;
-
+    
         // Enviar la solicitud POST al servidor
         axios.post('https://paypromanager2.000webhostapp.com/php/editpagos.php', {
             pago_id: pago.pago_id,
@@ -197,9 +197,15 @@ function Main() {
                     }
                     return p;
                 }));
-
+    
                 // Mostrar un mensaje de confirmación
                 alert('Pago confirmado correctamente');
+    
+                // Cerrar la ventana emergente
+                modal.close();
+    
+                // Recargar la página después de cerrar la ventana emergente
+                window.location.reload();
             } else {
                 // Mostrar un mensaje de error
                 alert('Error al confirmar el pago');
@@ -210,7 +216,7 @@ function Main() {
             console.error('Error al confirmar el pago:', error);
         });
     }
-
+    
     const generatePDF = (pago) => {
         const doc = new jsPDF();
 
@@ -236,22 +242,24 @@ function Main() {
         doc.text(`RFC del Cliente: ${pago.RFC}`, 15, 90);
         doc.text(`Monto Pagado: $${pago.monto}`, 15, 100);
         doc.text(`Método de Pago: ${pago.metodo_pago}`, 15, 110);
+        doc.text(`Concepto de Pago: ${pago.concepto_pago}`, 15, 120);
+      
 
         // Línea horizontal
-        doc.line(10, 120, 200, 120);
+        doc.line(10, 130, 200, 130);
 
         // Información del cliente (agregada)
         doc.setFontSize(10);
         doc.setFont('helvetica', 'normal');
-        doc.text('INFORMACION DEL CLIENTE:', 15, 130);
+        doc.text('INFORMACION DEL CLIENTE:', 15, 140);
 
         // Obtener información del usuario por RFC
         const usuario = usuarios.find((u) => u.RFC === pago.RFC);
         if (usuario) {
-            doc.text(`Nombre: ${usuario.nombre}`, 15, 140);
-            doc.text(`Correo Electrónico: ${usuario.correo_electronico}`, 15, 150);
-            doc.text(`Direccion: ${usuario.direccion}`, 15, 160);
-            doc.text(`NSS: ${usuario.NSS}`, 15, 170);
+            doc.text(`Nombre: ${usuario.nombre}`, 15, 150);
+            doc.text(`Correo Electrónico: ${usuario.correo_electronico}`, 15, 160);
+            doc.text(`Direccion: ${usuario.direccion}`, 15, 170);
+            doc.text(`NSS: ${usuario.NSS}`, 15, 180);
             // Puedes agregar más campos según la estructura de tu tabla Usuario
         } else {
             doc.text('Información del cliente no disponible', 15, 140);
@@ -263,7 +271,7 @@ function Main() {
         doc.text('Firma del Cliente:', 140, 170);
 
         // Línea horizontal
-        doc.line(10, 180, 200, 180);
+        doc.line(10, 190, 200, 190);
 
         // Pie de página
         doc.setFontSize(10);
